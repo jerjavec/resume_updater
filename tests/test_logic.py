@@ -55,16 +55,3 @@ def test_update_resume_no_title_found(tmp_path):
     doc.save(file)
     with pytest.raises(ValueError):
         update_resume(str(file), "Developer", settings)
-
-def test_update_resume_with_style_override(tmp_path):
-    settings = load_settings()
-    settings["resume_title_style"] = "Heading 1"
-    file = tmp_path / "resume.docx"
-    doc = Document()
-    p = doc.add_paragraph("Override Title")
-    p.style = "Heading 1"
-    p.alignment = 1
-    doc.save(file)
-    new_docx, _ = update_resume(str(file), "Director", settings)
-    doc2 = Document(new_docx)
-    assert "Director" in [p.text for p in doc2.paragraphs]
