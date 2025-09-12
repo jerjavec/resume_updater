@@ -1,6 +1,7 @@
 import os, json
 
-SETTINGS_FILE = "settings.json"
+MAIN_DIR = os.path.dirname(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'main.py')))
+SETTINGS_FILE = os.path.join(MAIN_DIR, "settings.json")
 
 def load_settings():
     if not os.path.exists(SETTINGS_FILE):
