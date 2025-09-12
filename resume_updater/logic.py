@@ -12,41 +12,25 @@ def update_resume(docx_path, new_title, settings):
     doc = Document(docx_path)
     title_replaced = False
 
-    for para in doc.paragraphs:
-        if not para.text.strip():
-            continue
+    # Change the 4th paragraph (index 3) to new_title with formatting
+    if len(doc.paragraphs) < 4:
+        raise ValueError("Document does not have enough paragraphs to update the title.")
+    para = doc.paragraphs[3]
+    para.clear()
+    new_run = para.add_run(new_title)
+    new_run.bold = True
+    new_run.font.size = Pt(12)
+    new_run.font.name = "Calibri"
+    para.alignment = 1  # centered
+    title_replaced = True
 
-        if para.alignment == 1:  # centered
-            style_name = para.style.name.lower() if para.style else ""
-            target_style = settings.get("resume_title_style", "").lower().strip()
-
-            if target_style and style_name == target_style:
-                para.text = new_title
-                title_replaced = True
-                break
-
-            for run in para.runs:
-                font_size = run.font.size
-                bold = run.bold
-                if bold and font_size == Pt(12):
-                    para.text = new_title
-                    title_replaced = True
-                    break
-                if bold and any(keyword in style_name for keyword in ["heading", "title"]):
-                    para.text = new_title
-                    title_replaced = True
-                    break
-        if title_replaced:
-            break
-
-    if not title_replaced:
-        raise ValueError("Could not detect resume title to replace.")
-
+    import os
     today = datetime.today().strftime("%Y%m%d")
     safe_title = new_title.replace(" ", "-")
     name = settings["name"]
-    new_docx_filename = f"{today}-{name}_resume_{safe_title}.docx"
-    pdf_filename = settings["pdf_filename"]
+    input_dir = os.path.dirname(docx_path)
+    new_docx_filename = os.path.join(input_dir, f"{today}-{name}_resume_{safe_title}.docx")
+    pdf_filename = os.path.join(input_dir, settings["pdf_filename"])
 
     doc.save(new_docx_filename)
     convert(new_docx_filename, pdf_filename)
