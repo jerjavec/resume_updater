@@ -1,3 +1,4 @@
+import pytest
 import os
 from resume_updater.settings_manager import load_settings, save_settings, SETTINGS_FILE
 

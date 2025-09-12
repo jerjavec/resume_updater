@@ -1,3 +1,4 @@
+import pytest
 import os
 from resume_updater.logger_manager import log_update, log_exists, LOG_FILE, view_log
 
