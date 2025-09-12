@@ -29,4 +29,6 @@ jobs:
           pip install pytest python-docx docx2pdf
 
       - name: Run tests with pytest
-        run: pytest --maxfail=1 --disable-warnings -q
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/resume_updater
+          pytest --maxfail=1 --disable-warnings -q
