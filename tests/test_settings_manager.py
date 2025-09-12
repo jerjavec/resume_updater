@@ -1,5 +1,7 @@
 import pytest
 import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'resume_updater')))
 from resume_updater.settings_manager import load_settings, save_settings, SETTINGS_FILE
 
 def test_settings_file_created(tmp_path):

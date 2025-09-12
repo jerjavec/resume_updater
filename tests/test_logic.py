@@ -1,18 +1,26 @@
 import pytest
+import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'resume_updater')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'resume_updater/resume_updater')))
 from resume_updater.logic import update_resume
 from resume_updater.settings_manager import load_settings
 from docx import Document
-import os
+from docx.shared import Pt
 
 def create_docx_with_title(path, title="Summary"):
     doc = Document()
-    doc.add_paragraph("John Doe")  # name
+    n = doc.add_paragraph("John Doe")  # name
+    run = n.runs[0]
+    run.bold = True
+    run.font.size = Pt(12)  # simulate missing explicit size
+    n.alignment = 1  # centered
     doc.add_paragraph("")          # blank
     doc.add_paragraph("")          # blank
     p = doc.add_paragraph(title)
     run = p.runs[0]
     run.bold = True
-    run.font.size = None  # simulate missing explicit size
+    run.font.size = Pt(12)  # simulate missing explicit size
     p.alignment = 1  # centered
     doc.save(path)
 
