@@ -33,7 +33,10 @@ def update_resume(docx_path, new_title, settings):
     pdf_filename = os.path.join(input_dir, settings["pdf_filename"])
 
     doc.save(new_docx_filename)
-    convert(new_docx_filename, pdf_filename)
+    try:
+        convert(new_docx_filename, pdf_filename)
+    except Exception as e:
+        raise RuntimeError(f"PDF creation from {new_docx_filename} to {pdf_filename} failed: {e}")
 
     # Log this update
     log_update(docx_path, new_title, new_docx_filename, pdf_filename)

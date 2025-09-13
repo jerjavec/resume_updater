@@ -6,8 +6,8 @@ SETTINGS_FILE = os.path.join(MAIN_DIR, "settings.json")
 def load_settings():
     if not os.path.exists(SETTINGS_FILE):
         default_settings = {
-            "name": "JohnErjavec",
-            "pdf_filename": "JohnErjavec_Resume.pdf",
+            "name": "JohnDoe",
+            "pdf_filename": "JohnDoe_Resume.pdf",
             "recent_files": [],
             "resume_title_style": ""
         }

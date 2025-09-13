@@ -1,7 +1,8 @@
 import os
 from datetime import datetime
 
-LOG_FILE = "resume_updater.log"
+MAIN_DIR = os.path.dirname(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'main.py')))
+LOG_FILE = os.path.join(MAIN_DIR, "resume_updater.log")
 
 def log_update(original_file, new_title, new_docx, new_pdf):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
