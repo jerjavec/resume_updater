@@ -29,7 +29,7 @@ def update_resume(docx_path, new_title, settings):
     safe_title = new_title.replace(" ", "-")
     name = settings["name"]
     input_dir = os.path.dirname(docx_path)
-    new_docx_filename = os.path.join(input_dir, f"{today}-{name}_resume_{safe_title}.docx")
+    new_docx_filename = os.path.join(input_dir, f"{today}-{name}_Resume_{safe_title}.docx")
     pdf_filename = os.path.join(input_dir, settings["pdf_filename"])
 
     doc.save(new_docx_filename)
